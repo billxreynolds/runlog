@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Admit One Search Page</title>
+        
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+      	      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen" />
+ 
+		<script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+        	th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+		<script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
+        	th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+		<script src="http://cdn.jsdelivr.net/webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"
+        	th:src="@{/webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js}"></script>
+        
+        <!-- 
+        <script type="text/javascript">
+		    $(document).ready(function () {
+		        $('#startDate').datepicker({
+		            format: "yyyy-mm-dd"
+		        });
+		        $('#endDate').datepicker({
+		            format: "yyyy-mm-dd"
+		        });
+		    });
+		</script>
+		 -->
+        
+    </head>
+    <body>
+        
+        
+        <form action="#" th:action="@{/searchResults}" th:object="${searchInput}" method="post" >               	   
+			<div class="col-md-offset-5 col-md-3">               	   	        
+	        	<div class="container">
+	        		<h1>Event Search</h1>
+	        		<p>Search for events between IDs</p>
+	        	</div> 	               	  
+			    <div>
+				    <label> Start ID: <input id="startID" type="text" th:field="*{startID}" class="form-control"/> </label>				    
+				</div>				
+				<br/>				
+			    <div>
+				    <label> End ID: <input id="endID" type="text" th:field="*{endID}" class="form-control"/></label>				    
+				</div>				
+				<br/>				
+				<div><input type="submit" value="Search"/></div>				
+		    </div>
+	   </form>
+        
+        <!-- TODO: demonstrate bootstrap-datepicker
+        <hr/>
+        
+        <form action="#" th:action="@{/searchResultsByDate}" th:object="${searchInput}" method="post" >               	   
+			<div class="col-md-offset-5 col-md-3">               	   
+	        
+	        	<div class="container">
+	        		<h1>Event Search</h1>
+	        		<p>Search for events between dates</p>
+	        	</div> 
+	               	   
+			    <div class="input-group date" data-provide="datepicker">
+				    <label> Start Date: <input id="startDate" type="text" th:field="*{startDate}" class="form-control"/> </label>
+				    <div class="input-group-addon">
+				        <span class="glyphicon glyphicon-th"></span>
+				    </div>
+				</div>
+				
+				<br/>
+				
+			    <div class="input-group date" data-provide="datepicker">
+				    <label> End Date: <input id="endDate" type="text" th:field="*{endDate}" class="form-control"/></label>
+				    <div class="input-group-addon">
+				        <span class="glyphicon glyphicon-th"></span>
+				    </div>
+				</div>
+				
+				<br/>
+				
+				<div><input type="submit" value="Search"/></div>
+				
+		    </div>
+	   </form>
+                        
+		-->
+    </body>
+</html>
