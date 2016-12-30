@@ -272,8 +272,9 @@ public class OrderMgmtController implements OrderMgmtConstants {
 	
 	// not required by the spec, but we should have a way to
 	// authorize the requests. easiest way is to shove a
-	// key into the headers of the Http request - other
-	// ways might involve a real authorization service like
+	// key into the headers of the Http request, and
+	// compare against a known-good key on the server side.
+	// a better way would be to use a real authorization service like
 	// SAML, OAuth or even Basic Http auth...
 	private boolean authorizeRequest (HttpServletRequest request) {
 		
