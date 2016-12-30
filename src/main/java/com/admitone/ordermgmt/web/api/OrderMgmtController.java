@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admitone.ordermgmt.model.CustomerOrderEntity;
+import com.admitone.ordermgmt.model.EventEntity;
 import com.admitone.ordermgmt.model.UserEntity;
 import com.admitone.ordermgmt.service.OrderMgmtService;
 
@@ -29,6 +30,70 @@ public class OrderMgmtController implements OrderMgmtConstants {
 		String numTickets = request.getParameter("numTickets");
 		String eventId = request.getParameter("eventId");
 				
+		OrderMgmtResponse response = processInputs (username, numTickets, eventId);
+		
+		// hit an error, return immediately
+		if (response.getCode().equals(ERROR_CODE)) {
+			return response;
+		}
+		
+		// locate the given user
+		UserEntity user = orderMgmtService.findByUserName(username);		
+		if (user == null) {
+			return noUserFound(username);
+		}			
+		
+		// locate the event
+		EventEntity event = orderMgmtService.findByEventId(Integer.parseInt(eventId));
+		if (event == null) {
+			return noEventFound (eventId);
+		}
+		
+		CustomerOrderEntity custOrder = 
+				orderMgmtService.findCustomerOrderByUserAndEventId(user, Integer.parseInt(eventId));
+		
+		// no existing orders for this customer and event, create one 
+		Timestamp orderDt = Timestamp.from(Instant.now());
+		boolean isNewOrder = false;
+		if (custOrder == null) {
+			isNewOrder = true;
+			custOrder = new CustomerOrderEntity();
+			custOrder.setUserId(user.getUserId());
+			custOrder.setEventId(Integer.parseInt(eventId));
+			custOrder.setNumTickets(Integer.parseInt(numTickets));
+			custOrder.setOrderStatus(ACTIVE_ORDER);
+			custOrder.setOrderDt(orderDt);
+			custOrder.setCreatedDt(orderDt);
+			custOrder.setUpdatedDt(orderDt);
+		}
+		else {
+			// update existing order
+			custOrder.setNumTickets(custOrder.getNumTickets() + Integer.parseInt(numTickets));
+			custOrder.setOrderDt(orderDt);
+			custOrder.setUpdatedDt(orderDt);	
+		}
+		
+		CustomerOrderEntity savedOrder = orderMgmtService.saveCustOrder(custOrder);
+				
+		if (isNewOrder && savedOrder.getOrderId() != null) {
+			response.setDetails("Created order: " + savedOrder.getOrderId());
+		}
+		else if (!isNewOrder && savedOrder.getOrderId() != null) {
+			response.setDetails("Updated order: " + savedOrder.getOrderId());
+		}
+		else {
+			response.setCode(ERROR_CODE);
+			response.setMessage(ERR_ORDER_NOT_CREATED);			
+		}
+				
+		return response;
+	}
+	
+	private OrderMgmtResponse processInputs (String username, String numTickets, String eventId) {
+		OrderMgmtResponse response = new OrderMgmtResponse ();
+		response.setCode(SUCCESS_CODE);
+		response.setMessage(SUCCESS_MESSAGE);
+		
 		// process inputs
 		if (StringUtils.isBlank(username)) {
 			return missingParam ("username");
@@ -45,37 +110,6 @@ public class OrderMgmtController implements OrderMgmtConstants {
 		if (!StringUtils.isNumeric(numTickets)) {
 			return invalidData ("numTickets", numTickets);
 		}
-		
-		// locate the given user
-		UserEntity user = orderMgmtService.findByUserName(username);		
-		if (user == null) {
-			return noUserFound(username);
-		}			
-		
-		// place order
-		Timestamp orderDt = Timestamp.from(Instant.now());
-		CustomerOrderEntity custOrder = new CustomerOrderEntity();
-		custOrder.setUserId(user.getUserId());
-		custOrder.setEventId(Integer.parseInt(eventId));
-		custOrder.setNumTickets(Integer.parseInt(numTickets));
-		custOrder.setOrderStatus(ACTIVE_ORDER);
-		custOrder.setOrderDt(orderDt);
-		custOrder.setCreatedDt(orderDt);
-		custOrder.setUpdatedDt(orderDt);
-		
-		OrderMgmtResponse response = new OrderMgmtResponse();
-		CustomerOrderEntity savedOrder = orderMgmtService.saveCustOrder(custOrder);
-				
-		if (savedOrder.getOrderId() != null) {
-			response.setCode(SUCCESS_CODE);
-			response.setMessage(SUCCESS_MESSAGE);
-			response.setDetails("Created order: " + savedOrder.getOrderId());
-		}
-		else {
-			response.setCode(ERROR_CODE);
-			response.setMessage(ERR_ORDER_NOT_CREATED);			
-		}
-				
 		return response;
 	}
 		
@@ -91,7 +125,15 @@ public class OrderMgmtController implements OrderMgmtConstants {
 		OrderMgmtResponse response = new OrderMgmtResponse();
 		response.setCode(ERROR_CODE);
 		response.setMessage(ERR_NO_USER_FOUND);
-		response.setDetails("unable to locate: " + userName);
+		response.setDetails("unable to locate user: " + userName);
+		return response;
+	}
+	
+	private OrderMgmtResponse noEventFound(String eventId) {
+		OrderMgmtResponse response = new OrderMgmtResponse();
+		response.setCode(ERROR_CODE);
+		response.setMessage(ERR_NO_EVENT_FOUND);
+		response.setDetails("unable to locate event: " + eventId);
 		return response;
 	}
 	
@@ -102,7 +144,7 @@ public class OrderMgmtController implements OrderMgmtConstants {
 		response.setDetails("bad data for: " + paramName + ", unable to process: " + data);
 		return response;
 	}
-		
+	
 	@GetMapping(value = { "/api/cancel" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public OrderMgmtResponse cancel(HttpServletRequest request) {
@@ -111,27 +153,23 @@ public class OrderMgmtController implements OrderMgmtConstants {
 		String numTickets = request.getParameter("numTickets");
 		String eventId = request.getParameter("eventId");
 
-		// process inputs
-		if (StringUtils.isBlank(username)) {
-			return missingParam ("username");
-		}		
-		if (StringUtils.isBlank(eventId)) {			
-			return missingParam ("eventId");
-		}
-		if (StringUtils.isBlank(numTickets)) {
-			return missingParam ("numTickets");
-		}
-		if (!StringUtils.isNumeric(eventId)) {
-			return invalidData ("eventId", eventId);
-		}
-		if (!StringUtils.isNumeric(numTickets)) {
-			return invalidData ("numTickets", numTickets);
+		OrderMgmtResponse response = processInputs (username, numTickets, eventId);
+		
+		// hit an error, return immediately
+		if (response.getCode().equals(ERROR_CODE)) {
+			return response;
 		}
 						
 		UserEntity user = orderMgmtService.findByUserName(username);
 		if (user == null) {
 			return noUserFound(username);
 		}	
+		
+		// locate the event
+		EventEntity event = orderMgmtService.findByEventId(Integer.parseInt(eventId));
+		if (event == null) {
+			return noEventFound (eventId);
+		}
 		
 		CustomerOrderEntity custOrder = 
 				orderMgmtService.findCustomerOrderByUserAndEventId(user, Integer.parseInt(eventId));
@@ -152,17 +190,15 @@ public class OrderMgmtController implements OrderMgmtConstants {
 		custOrder.setUpdatedDt(updatedDt);
 		
 		CustomerOrderEntity saved = orderMgmtService.saveCustOrder(custOrder);
-		
-		OrderMgmtResponse response = new OrderMgmtResponse();
+					
 		if (!saved.getUpdatedDt().equals(updatedDt)) {
 			response.setCode(ERROR_CODE);
 			response.setMessage(ERR_ORDER_NOT_UPDATED);
 		}
 		else {
-			response.setCode(SUCCESS_CODE);
-			response.setMessage(SUCCESS_MESSAGE);
 			response.setDetails("Order: " + saved.getOrderId() + " updated to " + curNumTickets);
 		}
+	
 		return response;
 	}
 
@@ -197,14 +233,25 @@ public class OrderMgmtController implements OrderMgmtConstants {
 			return noUserFound(username);
 		}	
 		
-		// get the first show
+		// locate the events
+		EventEntity fromEvent = orderMgmtService.findByEventId(Integer.parseInt(fromEventId));
+		if (fromEvent == null) {
+			return noEventFound (fromEventId);
+		}
+		
+		EventEntity toEvent = orderMgmtService.findByEventId(Integer.parseInt(toEventId));
+		if (toEvent == null) {
+			return noEventFound (toEventId);
+		}
+		
+		// get order for the first event
 		CustomerOrderEntity fromOrder = 
 				orderMgmtService.findCustomerOrderByUserAndEventId(user, Integer.parseInt(fromEventId));
 		
-		// get the second show
+		// get order for the second event
 		CustomerOrderEntity toOrder = 
 				orderMgmtService.findCustomerOrderByUserAndEventId(user, Integer.parseInt(toEventId));
-		
+			
 		// decrement tickets from the first show
 		int fromOrderRemainingTickets = fromOrder.getNumTickets() - Integer.parseInt(numTickets);
 		fromOrder.setNumTickets(fromOrderRemainingTickets);	
@@ -223,6 +270,11 @@ public class OrderMgmtController implements OrderMgmtConstants {
 		return response;
 	}
 	
+	// not required by the spec, but we should have a way to
+	// authorize the requests. easiest way is to shove a
+	// key into the headers of the Http request - other
+	// ways might involve a real authorization service like
+	// SAML, OAuth or even Basic Http auth...
 	private boolean authorizeRequest (HttpServletRequest request) {
 		
 		// 

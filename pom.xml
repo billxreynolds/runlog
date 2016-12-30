@@ -94,11 +94,13 @@
 			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 
+		<!-- QueryDSL currently unused  -->
+		<!-- 
 		<dependency>
 		  <groupId>com.querydsl</groupId>
 		  <artifactId>querydsl-jpa</artifactId>		  
 		</dependency>
-		
+		 -->
 		
         <dependency>
             <groupId>org.testng</groupId>
@@ -182,7 +184,8 @@
 				</dependencies>
 			</plugin>
 			
-			<!-- add post-processing for querydsl -->								
+			<!-- add post-processing for querydsl -->	
+			<!-- 							
 			<plugin>
 		        <groupId>com.mysema.maven</groupId>
 		        <artifactId>apt-maven-plugin</artifactId>
@@ -206,6 +209,7 @@
 		          </dependency>
 		        </dependencies>
 			</plugin>
+			 -->
 			
 			<!-- JaCoCo configuration -->
 			<!-- to view the report locally, follow these steps:			

@@ -20,10 +20,10 @@ public class SearchController {
 	@Autowired
 	OrderMgmtService orderMgmtService;
 	
-	@GetMapping("/search")
-	public String getSearchPage(Model model) {        
+	@GetMapping("/searchRequest")
+	public String getSearchRequest(Model model) {        
         model.addAttribute("searchInput", new SearchInput());        
-    	return "search";
+    	return "searchRequest";
     }
 	
 	@PostMapping("/searchResults")

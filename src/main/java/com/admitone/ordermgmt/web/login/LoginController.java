@@ -1,4 +1,4 @@
-package com.admitone.ordermgmt.web;
+package com.admitone.ordermgmt.web.login;
 
 import java.util.Optional;
 

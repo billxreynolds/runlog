@@ -10,5 +10,6 @@ import com.admitone.ordermgmt.model.EventEntity;
 public interface EventRepository extends CrudRepository<EventEntity, Long> {
 	
 	Iterable<EventEntity> findByEventDtBetween (Timestamp start, Timestamp end);
-          
+      
+	EventEntity findByEventId (Integer eventId);
 }

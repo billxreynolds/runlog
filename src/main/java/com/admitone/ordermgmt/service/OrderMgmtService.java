@@ -81,5 +81,10 @@ public class OrderMgmtService {
 		Iterable<EventEntity> events = eventRepo.findByEventDtBetween(start, end);
 		return events;
 	}
+	
+	public EventEntity findByEventId(Integer eventId) {
+		EventEntity event = eventRepo.findByEventId(eventId);
+		return event;
+	}
 
 }
