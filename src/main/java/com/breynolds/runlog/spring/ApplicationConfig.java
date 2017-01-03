@@ -1,4 +1,4 @@
-package com.admitone.ordermgmt.spring;
+package com.breynolds.runlog.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,15 +7,15 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.admitone.ordermgmt.service.OrderMgmtService;
+import com.breynolds.runlog.service.RunLogService;
 
 @Configuration
 @EnableTransactionManagement
 public class ApplicationConfig {
 
-  @Bean(name = "orderMgmtService")
-  public OrderMgmtService orderMgmtService() {
-    return new OrderMgmtService();
+  @Bean(name = "runLogService")
+  public RunLogService runLogService() {
+    return new RunLogService();
   }
 
   //

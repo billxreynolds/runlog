@@ -1,4 +1,4 @@
-package com.admitone.ordermgmt;
+package com.breynolds.runlog;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -6,10 +6,10 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@ComponentScan("com.admitone.ordermgmt")
+@ComponentScan("com.breynolds.runlog")
 @SpringBootApplication
 @EnableJpaRepositories
-public class OrderMgmtApplication extends SpringBootServletInitializer {
+public class RunLogApplication extends SpringBootServletInitializer {
   
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
@@ -21,7 +21,7 @@ public class OrderMgmtApplication extends SpringBootServletInitializer {
   }
 
   private static SpringApplicationBuilder configureApplication(SpringApplicationBuilder builder) {
-      return builder.sources(OrderMgmtApplication.class);
+      return builder.sources(RunLogApplication.class);
   }
 
 }

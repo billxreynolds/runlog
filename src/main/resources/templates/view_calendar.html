@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>View Calendar</title>
+        
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+      	      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen" />
+ 
+		<script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+        	th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+		<script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
+        	th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+		<script src="http://cdn.jsdelivr.net/webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"
+        	th:src="@{/webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js}"></script>
+        
+        <script type="text/javascript">
+		    $(document).ready(function () {
+		        $('#runDate').datepicker({
+		            format: 'dd-mm-yyyy'
+		        });
+		    });
+		</script>
+		
+    </head>
+    <body>
+    	<!-- TODO: add header -->
+    
+        <form action="#" th:action="@{/view_log}" th:object="${runLogEntity}" method="post" >               	   
+			<div class="col-md-offset-5 col-md-3">
+	        	<div class="container">
+	        		<h1>View Calendar</h1>
+	        	</div>
+			    <div class="input-group date" data-provide="datepicker" >
+				    <label> Run Date: 
+				    	<input type="text" th:field="*{runDate}" class="form-control"/> 
+				    </label>
+				    <div class="input-group-addon">
+				        <span class="glyphicon glyphicon-th"></span>
+				    </div>
+				</div>
+				<div><input type="submit" value="Edit Date"/></div>
+		    </div>
+	   </form>
+                        
+    </body>
+</html>
