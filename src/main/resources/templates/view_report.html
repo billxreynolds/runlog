@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>View Run Log</title>
+        <title>View Reports</title>
         
         <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
       	      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
@@ -40,53 +40,16 @@
 		    </div>
 		  </div>
 		</nav>
-		 
-                   	   	        
+		                    	   	        
        	<div class="container">
        		<div class="col-md-offset-5 col-md-3">
        			<div class="container">
-		        	<h2>Edit Log</h2>
+		        	<h2>Viewing Report</h2>
 		        </div>
        	
-		        <form action="#" th:action="@{/process_entity}"  th:object="${runLogInput}" method="post">
-		        	<input id="frmRunId" type="hidden"  th:field="*{runID}"/>
-		        	<input id="frmExisting" type="hidden"  th:field="*{existing}"/>
-				    <table border="1">
-				      <tr>
-				       <td>Run Date</td>
-				       <td width="800">
-				         <!--  <input type="text" id="frmRunDate" th:text="${#dates.format(runDate, 'MM/dd/yyyy')}"/> -->
-					     <input id="frmRunDate" type="text"  th:field="*{runDate}" class="form-control"/> 
-						 </td>
-				      </tr>
-				      <tr>
-				        <th>Route</th>
-				        <td width="800"> <textarea rows="5" cols="80" id="frmRoute" th:field="*{route}" style="width:100%"></textarea> </td>
-				      </tr>
-				      <tr>
-				         <th>Mileage</th>
-				         <td width="800"> <input type="text" id="frmMileage" th:field="*{mileage}" /></td>
-				      </tr>
-				      <tr>
-				         <th>Run Time</th>
-				         <td width="800"> <input type="text" id="frmRunTime" th:field="*{runTime}"/> </td>
-				      </tr>
-				      <tr>
-				         <th>Comments</th>
-				         <td width="800"> <textarea rows="5" cols="80" id="frmComments" th:field="*{comments}" style="width:100%"></textarea> </td>
-				      </tr>
-				    </table>
-				    <input type="Submit" name="saveRecord" value="Save record"/>
-				</form>
+		        
 			</div>      
          </div>
-         
-         <div th:if="${recordSaved}">
-		   <div class="container">
-		   	  <p th:text="${saveMsg}"></p>
-		   </div>
-		</div>
-         
-                
+                                  
     </body>
 </html>

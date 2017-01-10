@@ -93,6 +93,28 @@ public class RunLogEntity implements Serializable {
 		this.comments = comments;
 	}
 
+	public String getMileageAsString () {
+		String result = "";
+		try {
+			result = mileage.toString();
+		}
+		catch (Exception e) {
+			result = "";
+		}
+		return result;
+	}
+	
+	public String getRunTimeAsString () {
+		String result = "";
+		try {
+			result = runTime.toString();
+		}
+		catch (Exception e) {
+			result = "";
+		}
+		return result;
+	}
+	
 	public RunLogEntity() {
 
 	}

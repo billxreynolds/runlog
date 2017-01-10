@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,14 +71,9 @@ public class RunLogController {
     		log.info("loading saved run for " + runDate);
     		runLogInput.setRunID(savedEntity.getId());
     		runLogInput.setComments(savedEntity.getComments());
-    		runLogInput.setMileage(savedEntity.getMileage().toString());
-    		runLogInput.setRoute(savedEntity.getRoute());
-    		try {
-    			runLogInput.setRunTime(savedEntity.getRunTime().toString());
-    		}
-    		catch (Exception e) {
-    			log.debug("unable to parse time: " + runLogInput.getRunTime());
-    		}
+    		runLogInput.setMileage(savedEntity.getMileageAsString());
+    		runLogInput.setRoute(savedEntity.getRoute());    		
+    		runLogInput.setRunTime(savedEntity.getRunTimeAsString());    		
     		runLogInput.setExisting(true);
     	}
     	else {
@@ -110,15 +106,21 @@ public class RunLogController {
     		runLogEntity = runLogService.findById(runLogInput.getRunID());
     	}
     	
-    	// copy data from the form into the entity
+    	// copy data from the form into the entity    	
 		runLogEntity.setComments(runLogInput.getComments());
-		runLogEntity.setMileage( BigDecimal.valueOf( Double.parseDouble(runLogInput.getMileage())));
-		runLogEntity.setRoute(runLogInput.getRoute());
-		try {
-			runLogEntity.setRunTime( Time.valueOf( runLogInput.getRunTime()));
+		if (StringUtils.isNotBlank(runLogInput.getMileage())) {		
+			runLogEntity.setMileage( formatBigDecimal ( runLogInput.getMileage() ) );
 		}
-		catch (Exception e) {
-			log.debug("unable to parse time: " + runLogInput.getRunTime());
+		else {
+			runLogEntity.setMileage( null );
+		}
+		runLogEntity.setRoute(runLogInput.getRoute());
+		
+		if (StringUtils.isNotBlank(runLogInput.getRunTime())) {
+			runLogEntity.setRunTime( formatTime (runLogInput.getRunTime()) );			
+		}
+		else {
+			runLogEntity.setRunTime( null );
 		}
 
     	// insert/update the run
@@ -129,13 +131,28 @@ public class RunLogController {
     	}
     	
     	// redirect back to the input page
-    	runLogInput.setExisting(true);
+    	runLogInput.setRunID(savedEntity.getId());    	    	
+		runLogInput.setComments(savedEntity.getComments());
+		runLogInput.setMileage(savedEntity.getMileageAsString());
+		runLogInput.setRoute(savedEntity.getRoute());    		
+		runLogInput.setRunTime(savedEntity.getRunTimeAsString());    		
+		runLogInput.setExisting(true);    	
+    	
     	model.addAttribute("recordSaved", true);
     	model.addAttribute("saveMsg", "Run saved for: " + runLogInput.getRunDate());
     	model.addAttribute("runLogInput", runLogInput);
     	return "view_log";
     }
    
+    @GetMapping(value = { "/view_report"})
+    public String viewReportPage(Model model) {
+    	
+    	// TODO: implement this page
+    	
+        return "view_report";	
+    }
+    
+    
     private String getFormattedDate (LocalDateTime ldt) {
     	Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
     	Date d = Date.from(instant);
@@ -156,6 +173,29 @@ public class RunLogController {
     	}
     	return runDate;	
     }
+    
+    private Time formatTime (String input) {
+    	Time output = null;
+    	try {
+			output = Time.valueOf( input);
+		}
+		catch (Exception e) {
+			log.debug("unable to parse time: " + input);
+		}
+    	return output;
+    }
+    
+    private BigDecimal formatBigDecimal (String input) {
+    	BigDecimal output = null;
+    	try {
+    		output = BigDecimal.valueOf( Double.parseDouble(input));
+    	}
+    	catch (Exception e) {
+			log.debug("unable to parse big decimal: " + input);
+		}
+    	return output;
+    }
+    
 }
 
 
