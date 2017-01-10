@@ -8,6 +8,10 @@
       	      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
               rel="stylesheet" media="screen" />
  
+        <link href="http://cdn.jsdelivr.net/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css"
+      	      th:href="@{/webjars/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css}"
+              rel="stylesheet" media="screen" />
+ 
 		<script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
         	th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
 
@@ -19,24 +23,43 @@
         
         <script type="text/javascript">
 		    $(document).ready(function () {
-		        $('#runDate').datepicker({
-		            format: 'dd-mm-yyyy'
+		        $('#date-input').datepicker({
+		            format: "mm/dd/yyyy",
+		            weekStart:0,
+		            startDate:"0d",
+		            todayBtn:"linked",
+		            autoclose:true,
+		            todayHighlight:true
 		        });
 		    });
 		</script>
 		
     </head>
     <body>
-    	<!-- TODO: add header -->
-    
-        <form action="#" th:action="@{/view_log}" th:object="${runLogEntity}" method="post" >               	   
+    	
+    	<div class="col-md-offset-5 col-md-5">
+    		<div class="container">
+	    		<table>
+			    	<tr>
+			    		<td> View: </td>
+						<td><a href="/view_calendar">Calendar</a></td>
+						<td>&nbsp;</td>
+						<td><a href="/view_report?weekly=true">Weekly Report</a></td>
+						<td>&nbsp;</td>
+						<td><a href="/view_report?monthly=true">Monthly Report</a></td>
+					</tr>
+			  	</table>
+			  </div>
+		 </div>
+	    	 
+        <form action="#" th:action="@{/view_log}" th:object="${runLogInput}" method="post" >               	   
 			<div class="col-md-offset-5 col-md-3">
 	        	<div class="container">
 	        		<h1>View Calendar</h1>
 	        	</div>
 			    <div class="input-group date" data-provide="datepicker" >
 				    <label> Run Date: 
-				    	<input type="text" th:field="*{runDate}" class="form-control"/> 
+				    	<input id="date-input" type="text"  th:field="*{runDate}" class="form-control"/> 
 				    </label>
 				    <div class="input-group-addon">
 				        <span class="glyphicon glyphicon-th"></span>

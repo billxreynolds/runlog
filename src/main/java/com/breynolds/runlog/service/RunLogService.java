@@ -1,6 +1,6 @@
 package com.breynolds.runlog.service;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,15 +19,7 @@ public class RunLogService {
 	RunLogRepository runLogRepo;
 
 	public RunLogEntity saveRunLog (RunLogEntity runLog) {
-		// grr, this repo should call merge for me automatically, 
-		// but it isn't. so, delete/reinsert the entity.
-		// i hate spring.
-		RunLogEntity saved = runLogRepo.findByRunDate(runLog.getRunDate());
-		if (saved != null) {
-			runLogRepo.delete(runLog);
-		}
-		
-		saved = runLogRepo.save(runLog);
+		RunLogEntity saved = runLogRepo.save(runLog);
 		
 		if (log.isDebugEnabled()) {
 			log.debug("saved: " + saved);
@@ -36,7 +28,17 @@ public class RunLogService {
 	}
 
 	public RunLogEntity findByRunDate(Date runDate) {
-		RunLogEntity runLog = runLogRepo.findByRunDate(runDate);
+		RunLogEntity runLog = runLogRepo.findByRunDate (runDate);
+		return runLog;
+	}
+	
+	public RunLogEntity findByRunDateBetween(Date dayStart, Date dayEnd) {
+		RunLogEntity runLog = runLogRepo.findByRunDateBetween(dayStart, dayEnd);
+		return runLog;
+	}
+	
+	public RunLogEntity findById (Integer id) {
+		RunLogEntity runLog = runLogRepo.findById(id);
 		return runLog;
 	}
 	

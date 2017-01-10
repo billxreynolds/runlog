@@ -2,8 +2,9 @@ package com.breynolds.runlog.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Time;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,21 +12,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 @Entity
-@Table(name = "RUN_LOG")
+@Table(name = "RUN_LOG" )
 public class RunLogEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6908641690112989929L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
 	private Integer id;
 
 	@Column(name = "RUN_DATE")
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date runDate;
 
 	@Column(name = "ROUTE")

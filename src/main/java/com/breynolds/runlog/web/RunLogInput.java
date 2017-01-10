@@ -1,22 +1,30 @@
 package com.breynolds.runlog.web;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Time;
 
 public class RunLogInput {
 
-	private Date runDate;	
-	private String route;
-	private BigDecimal mileage;
-	private Time runTime;
-	private String comments;
 	
-	public Date getRunDate() {
+	private Integer runID;
+	private String runDate;	
+	private String route;
+	private String mileage;
+	private String runTime;
+	private String comments;
+	private boolean existing;
+	
+	public Integer getRunID() {
+		return runID;
+	}
+
+	public void setRunID(Integer runID) {
+		this.runID = runID;
+	}
+
+	public String getRunDate() {
 		return runDate;
 	}
 
-	public void setRunDate(Date runDate) {
+	public void setRunDate(String runDate) {
 		this.runDate = runDate;
 	}
 
@@ -28,19 +36,19 @@ public class RunLogInput {
 		this.route = route;
 	}
 
-	public BigDecimal getMileage() {
+	public String getMileage() {
 		return mileage;
 	}
 
-	public void setMileage(BigDecimal mileage) {
+	public void setMileage(String mileage) {
 		this.mileage = mileage;
 	}
 
-	public Time getRunTime() {
+	public String getRunTime() {
 		return runTime;
 	}
 
-	public void setRunTime(Time runTime) {
+	public void setRunTime(String runTime) {
 		this.runTime = runTime;
 	}
 
@@ -51,5 +59,15 @@ public class RunLogInput {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+
+	public boolean isExisting() {
+		return existing;
+	}
+
+	public void setExisting(boolean existing) {
+		this.existing = existing;
+	}
+
+
 
 }
