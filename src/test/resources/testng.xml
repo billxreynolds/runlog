@@ -3,7 +3,7 @@
 <suite name="TestAll">
 	<test name="all">
 		<packages>
-			<package name="com.quintiles.rdc.*" />
+			<package name="com.breynolds.runlog.*" />
 		</packages>
 	</test>
 </suite>
