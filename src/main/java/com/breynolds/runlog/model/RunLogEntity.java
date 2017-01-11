@@ -14,18 +14,17 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
-@Table(name = "RUN_LOG" )
+@Table(name = "RUN_LOG")
 public class RunLogEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6908641690112989929L;
-	
-	@Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Integer id;
 
@@ -41,7 +40,7 @@ public class RunLogEntity implements Serializable {
 
 	@Column(name = "RUN_TIME")
 	private Time runTime;
-	
+
 	@Column(name = "COMMENTS")
 	private String comments;
 
@@ -93,32 +92,28 @@ public class RunLogEntity implements Serializable {
 		this.comments = comments;
 	}
 
-	public String getMileageAsString () {
+	public String getMileageAsString() {
 		String result = "";
 		try {
 			result = mileage.toString();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			result = "";
 		}
 		return result;
 	}
-	
-	public String getRunTimeAsString () {
+
+	public String getRunTimeAsString() {
 		String result = "";
 		try {
 			result = runTime.toString();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			result = "";
 		}
 		return result;
 	}
-	
+
 	public RunLogEntity() {
 
 	}
 
-
-	
 }

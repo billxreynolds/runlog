@@ -13,21 +13,19 @@ import com.breynolds.runlog.service.RunLogService;
 @EnableTransactionManagement
 public class ApplicationConfig {
 
-  @Bean(name = "runLogService")
-  public RunLogService runLogService() {
-    return new RunLogService();
-  }
+	@Bean(name = "runLogService")
+	public RunLogService runLogService() {
+		return new RunLogService();
+	}
 
-  //
-  // allow external configuration of the warfile's properties
-  // 
-  @Configuration
-  @Profile("default")         
-  @PropertySources({
-    @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = false),
-    @PropertySource(value = "classpath:application-ext.properties", ignoreResourceNotFound = true)})  
-  static class DefaultsProps {
-  }
-
+	//
+	// allow external configuration of the warfile's properties
+	//
+	@Configuration
+	@Profile("default")
+	@PropertySources({ @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = false),
+			@PropertySource(value = "classpath:application-ext.properties", ignoreResourceNotFound = true) })
+	static class DefaultsProps {
+	}
 
 }

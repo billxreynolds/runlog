@@ -1,92 +1,102 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>View Run Log</title>
-        
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
-      	      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
-              rel="stylesheet" media="screen" />
- 
-		<script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
-        	th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>View Run Log</title>
 
-		<script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
-        	th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>  
-        	           
-    </head>
-    <body>
-    
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+
+<script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+<script
+	src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+
 	<nav class="navbar navbar-default">
-		  <div class="container-fluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->		
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="/">Home</a>
-		    </div>
-						    
-		    <div class="collapse navbar-collapse navbar-left " id="bs-example-navbar-collapse-1">
-		      <ul class="nav navbar-nav">        
-		        <li><a href="/view_calendar">Calendar</a></li>
-		        <li><a href="/view_report?weekly">Weekly Report</a></li>
-		        <li><a href="/view_report?monthly">Monthly Report</a></li>
-		      </ul>		      		      
-		    </div>
-		  </div>
-		</nav>
-		 
-                   	   	        
-       	<div class="container">
-       		<div class="col-md-offset-5 col-md-3">
-       			<div class="container">
-		        	<h2>Edit Log</h2>
-		        </div>
-       	
-		        <form action="#" th:action="@{/process_entity}"  th:object="${runLogInput}" method="post">
-		        	<input id="frmRunId" type="hidden"  th:field="*{runID}"/>
-		        	<input id="frmExisting" type="hidden"  th:field="*{existing}"/>
-				    <table border="1">
-				      <tr>
-				       <td>Run Date</td>
-				       <td width="800">
-				         <!--  <input type="text" id="frmRunDate" th:text="${#dates.format(runDate, 'MM/dd/yyyy')}"/> -->
-					     <input id="frmRunDate" type="text"  th:field="*{runDate}" class="form-control"/> 
-						 </td>
-				      </tr>
-				      <tr>
-				        <th>Route</th>
-				        <td width="800"> <textarea rows="5" cols="80" id="frmRoute" th:field="*{route}" style="width:100%"></textarea> </td>
-				      </tr>
-				      <tr>
-				         <th>Mileage</th>
-				         <td width="800"> <input type="text" id="frmMileage" th:field="*{mileage}" /></td>
-				      </tr>
-				      <tr>
-				         <th>Run Time</th>
-				         <td width="800"> <input type="text" id="frmRunTime" th:field="*{runTime}"/> </td>
-				      </tr>
-				      <tr>
-				         <th>Comments</th>
-				         <td width="800"> <textarea rows="5" cols="80" id="frmComments" th:field="*{comments}" style="width:100%"></textarea> </td>
-				      </tr>
-				    </table>
-				    <input type="Submit" name="saveRecord" value="Save record"/>
-				</form>
-			</div>      
-         </div>
-         
-         <div th:if="${recordSaved}">
-		   <div class="container">
-		   	  <p th:text="${saveMsg}"></p>
-		   </div>
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Home</a>
+			</div>
+
+			<div class="collapse navbar-collapse navbar-left "
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="/view_calendar">Calendar</a></li>
+					<li><a href="/view_report?weekly">Weekly Report</a></li>
+					<li><a href="/view_report?monthly">Monthly Report</a></li>
+				</ul>
+			</div>
 		</div>
-         
-                
-    </body>
+	</nav>
+
+
+	<div class="container">
+		<div class="col-md-offset-5 col-md-3">
+			<div class="container">
+				<h2>Edit Log</h2>
+			</div>
+
+			<form action="#" th:action="@{/process_entity}"
+				th:object="${runLogInput}" method="post">
+				<input id="frmRunId" type="hidden" th:field="*{runID}" /> <input
+					id="frmExisting" type="hidden" th:field="*{existing}" />
+				<table border="1">
+					<tr>
+						<td>Run Date</td>
+						<td width="800">
+							<!--  <input type="text" id="frmRunDate" th:text="${#dates.format(runDate, 'MM/dd/yyyy')}"/> -->
+							<input id="frmRunDate" type="text" th:field="*{runDate}"
+							class="form-control" />
+						</td>
+					</tr>
+					<tr>
+						<th>Route</th>
+						<td width="800"><textarea rows="5" cols="80" id="frmRoute"
+								th:field="*{route}" style="width: 100%"></textarea></td>
+					</tr>
+					<tr>
+						<th>Mileage</th>
+						<td width="800"><input type="text" id="frmMileage"
+							th:field="*{mileage}" /></td>
+					</tr>
+					<tr>
+						<th>Run Time</th>
+						<td width="800"><input type="text" id="frmRunTime"
+							th:field="*{runTime}" /></td>
+					</tr>
+					<tr>
+						<th>Comments</th>
+						<td width="800"><textarea rows="5" cols="80" id="frmComments"
+								th:field="*{comments}" style="width: 100%"></textarea></td>
+					</tr>
+				</table>
+				<input type="Submit" name="saveRecord" value="Save record" />
+			</form>
+		</div>
+	</div>
+
+	<div th:if="${recordSaved}">
+		<div class="container">
+			<p th:text="${saveMsg}"></p>
+		</div>
+	</div>
+
+
+</body>
 </html>

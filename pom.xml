@@ -47,16 +47,16 @@
 			<artifactId>tomcat-jdbc</artifactId>
 		</dependency>
 
- 		
+
 		<dependency>
-	  		<groupId>org.hsqldb</groupId>
-	  		<artifactId>hsqldb</artifactId>	  		
-	  	</dependency>
- 
- 
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+
+
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
 		<dependency>
@@ -75,9 +75,9 @@
 		</dependency>
 
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>commons-lang</groupId>
@@ -90,51 +90,47 @@
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
 
-		<!-- 
+		<!-- <dependency> <groupId>org.springframework.data</groupId> <artifactId>spring-data-jpa</artifactId> 
+			</dependency> -->
+
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-		</dependency>
-		 -->
-		
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.9.9</version>
-        </dependency>
-		        
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-test</artifactId>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.9</version>
 		</dependency>
 
-		<!--  jacoco code coverage -->
 		<dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>            
-            <version>${jacoco.version}</version>
-        </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+
+		<!-- jacoco code coverage -->
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>${jacoco.version}</version>
+		</dependency>
 
 		<!-- WebJars -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.7</version>
-        </dependency>
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>bootstrap-datepicker</artifactId>
-		    <version>1.6.4</version>
-		</dependency>		                
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.1.1</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>3.3.7</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>font-awesome</artifactId>
-		    <version>4.7.0</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap-datepicker</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>font-awesome</artifactId>
+			<version>4.7.0</version>
 		</dependency>
 
 	</dependencies>
@@ -157,16 +153,17 @@
 		</pluginManagement>
 
 		<plugins>
-		
-			<!-- configures the embedded tomcat server to run with a debug port of 8091, 
-			     and turns on hot-swapping of classfiles via springloaded  -->
+
+			<!-- configures the embedded tomcat server to run with a debug port of 
+				8091, and turns on hot-swapping of classfiles via springloaded -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 
 				<configuration>
 					<jvmArguments>
-						-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091
+						-Xdebug
+						-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091
 					</jvmArguments>
 				</configuration>
 
@@ -178,41 +175,34 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
+
 			<!-- JaCoCo configuration -->
-			<!-- to view the report locally, follow these steps:			
-			     
-			     1) Install the EclEmma Eclipse plugin.
-			     2) Right click the project, Select Coverage As -> Coverage Configurations -> TestNG -> Coverage
-			     3) Open the Coverage view.
-			     
-			     To clear markers, follow these steps
-			     
-			     1) Open the Coverage view.
-			     2) Select "Remove all sessions" from the toolbar.
-			     
-			-->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>                
-                <version>${jacoco.version}</version>
-                <executions>
-                    <execution>
-                        <id>default-prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-						
+			<!-- to view the report locally, follow these steps: 1) Install the EclEmma 
+				Eclipse plugin. 2) Right click the project, Select Coverage As -> Coverage 
+				Configurations -> TestNG -> Coverage 3) Open the Coverage view. To clear 
+				markers, follow these steps 1) Open the Coverage view. 2) Select "Remove 
+				all sessions" from the toolbar. -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

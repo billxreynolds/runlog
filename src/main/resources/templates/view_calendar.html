@@ -1,27 +1,32 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>View Calendar</title>
-        
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
-      	      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
-              rel="stylesheet" media="screen" />
- 
-        <link href="http://cdn.jsdelivr.net/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css"
-      	      th:href="@{/webjars/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css}"
-              rel="stylesheet" media="screen" />
- 
-		<script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
-        	th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>View Calendar</title>
 
-		<script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
-        	th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
 
-		<script src="http://cdn.jsdelivr.net/webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"
-        	th:src="@{/webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js}"></script>
-        
-        <script type="text/javascript">
+<link
+	href="http://cdn.jsdelivr.net/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css"
+	th:href="@{/webjars/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css}"
+	rel="stylesheet" media="screen" />
+
+<script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+<script
+	src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+<script
+	src="http://cdn.jsdelivr.net/webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"
+	th:src="@{/webjars/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js}"></script>
+
+<script type="text/javascript">
 		    $(document).ready(function () {
 		        $('#date-input').datepicker({
 		            format: "mm/dd/yyyy",
@@ -33,56 +38,62 @@
 		        });
 		    });
 		</script>
-		
-    </head>
-    <body>
 
-    	<nav class="navbar navbar-default">
-		  <div class="container-fluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->		
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="/">Home</a>
-		    </div>
-						    
-		    <div class="collapse navbar-collapse navbar-left " id="bs-example-navbar-collapse-1">
-		      <ul class="nav navbar-nav">        
-		        <li><a href="/view_calendar">Calendar</a></li>
-		        <li><a href="/view_report?weekly">Weekly Report</a></li>
-		        <li><a href="/view_report?monthly">Monthly Report</a></li>
-		      </ul>		      		      
-		    </div>
-		  </div>
-		</nav>
+</head>
+<body>
 
-		<div class="container">		     	
-	        <form action="#" th:action="@{/view_log}" th:object="${runLogInput}" method="post" >               	   
-				<div class="col-md-offset-5 col-md-3">
-		        	<div class="container">
-		        		<h2>View Calendar</h2>
-		        	</div>
-				    <div class="input-group date" data-provide="datepicker" >					     
-						<table>
-							<tr>
-								<td class="lead">Run Date: </td>
-								<td><input id="date-input" type="text"  th:field="*{runDate}" class="form-control"/></td>
-								<td>														
-									<div class="input-group-addon">
-								       	<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</td>
-							</tr>
-						</table>								
-					</div>
-					<div><input type="submit" value="Edit Date"/></div>
-			    </div>
-		   </form>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Home</a>
+			</div>
+
+			<div class="collapse navbar-collapse navbar-left "
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="/view_calendar">Calendar</a></li>
+					<li><a href="/view_report?weekly">Weekly Report</a></li>
+					<li><a href="/view_report?monthly">Monthly Report</a></li>
+				</ul>
+			</div>
 		</div>
-                        
-    </body>
+	</nav>
+
+	<div class="container">
+		<form action="#" th:action="@{/view_log}" th:object="${runLogInput}"
+			method="post">
+			<div class="col-md-offset-5 col-md-3">
+				<div class="container">
+					<h2>View Calendar</h2>
+				</div>
+				<div class="input-group date" data-provide="datepicker">
+					<table>
+						<tr>
+							<td class="lead">Run Date:</td>
+							<td><input id="date-input" type="text" th:field="*{runDate}"
+								class="form-control" /></td>
+							<td>
+								<div class="input-group-addon">
+									<span class="glyphicon glyphicon-th"></span>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<input type="submit" value="Edit Date" />
+				</div>
+			</div>
+		</form>
+	</div>
+
+</body>
 </html>

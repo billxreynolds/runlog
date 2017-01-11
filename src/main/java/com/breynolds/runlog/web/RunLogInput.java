@@ -1,17 +1,15 @@
 package com.breynolds.runlog.web;
 
-
 public class RunLogInput {
 
-	
 	private Integer runID;
-	private String runDate;	
+	private String runDate;
 	private String route;
 	private String mileage;
 	private String runTime;
 	private String comments;
 	private boolean existing;
-	
+
 	public Integer getRunID() {
 		return runID;
 	}
@@ -67,7 +65,5 @@ public class RunLogInput {
 	public void setExisting(boolean existing) {
 		this.existing = existing;
 	}
-
-
 
 }

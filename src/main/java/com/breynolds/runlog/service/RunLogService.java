@@ -18,9 +18,9 @@ public class RunLogService {
 	@Autowired
 	RunLogRepository runLogRepo;
 
-	public RunLogEntity saveRunLog (RunLogEntity runLog) {
+	public RunLogEntity saveRunLog(RunLogEntity runLog) {
 		RunLogEntity saved = runLogRepo.save(runLog);
-		
+
 		if (log.isDebugEnabled()) {
 			log.debug("saved: " + saved);
 		}
@@ -28,18 +28,18 @@ public class RunLogService {
 	}
 
 	public RunLogEntity findByRunDate(Date runDate) {
-		RunLogEntity runLog = runLogRepo.findByRunDate (runDate);
+		RunLogEntity runLog = runLogRepo.findByRunDate(runDate);
 		return runLog;
 	}
-	
+
 	public RunLogEntity findByRunDateBetween(Date dayStart, Date dayEnd) {
 		RunLogEntity runLog = runLogRepo.findByRunDateBetween(dayStart, dayEnd);
 		return runLog;
 	}
-	
-	public RunLogEntity findById (Integer id) {
+
+	public RunLogEntity findById(Integer id) {
 		RunLogEntity runLog = runLogRepo.findById(id);
 		return runLog;
 	}
-	
+
 }

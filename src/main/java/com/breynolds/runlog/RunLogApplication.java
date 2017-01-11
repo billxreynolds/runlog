@@ -10,18 +10,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories
 public class RunLogApplication extends SpringBootServletInitializer {
-  
-  @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-      return configureApplication(builder);
-  }
 
-  public static void main(String[] args) {
-      configureApplication(new SpringApplicationBuilder()).run(args);
-  }
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return configureApplication(builder);
+	}
 
-  private static SpringApplicationBuilder configureApplication(SpringApplicationBuilder builder) {
-      return builder.sources(RunLogApplication.class);
-  }
+	public static void main(String[] args) {
+		configureApplication(new SpringApplicationBuilder()).run(args);
+	}
+
+	private static SpringApplicationBuilder configureApplication(SpringApplicationBuilder builder) {
+		return builder.sources(RunLogApplication.class);
+	}
 
 }
