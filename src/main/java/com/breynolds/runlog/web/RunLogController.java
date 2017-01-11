@@ -2,7 +2,7 @@ package com.breynolds.runlog.web;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.List;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -22,6 +22,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 
 import com.breynolds.runlog.model.RunLogEntity;
 import com.breynolds.runlog.service.RunLogService;
@@ -142,9 +145,16 @@ public class RunLogController {
 
 	@GetMapping(value = { "/view_report" })
 	public String viewReportPage(Model model) {
-
-		// TODO: implement this page
-
+		// show current month to date
+		LocalDate initial = LocalDate.now();
+		LocalDate ldStart = initial.with(firstDayOfMonth());
+		LocalDate ldEnd = initial.with(lastDayOfMonth());
+		Date start = Date.from(ldStart.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date end = Date.from(ldEnd.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		List<RunLogEntity> runLogEntities = runLogService.findByRunDateBetween(start, end);
+		model.addAttribute("runLogEntities", runLogEntities );
+		
 		return "view_report";
 	}
 
@@ -155,7 +165,7 @@ public class RunLogController {
 		String dfmt = sdf.format(d);
 		return dfmt;
 	}
-
+	
 	private Date parseRunDate(RunLogInput runLogInput) {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 

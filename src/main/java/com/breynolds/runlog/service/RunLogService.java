@@ -1,6 +1,7 @@
 package com.breynolds.runlog.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,8 +33,8 @@ public class RunLogService {
 		return runLog;
 	}
 
-	public RunLogEntity findByRunDateBetween(Date dayStart, Date dayEnd) {
-		RunLogEntity runLog = runLogRepo.findByRunDateBetween(dayStart, dayEnd);
+	public List<RunLogEntity> findByRunDateBetween(Date dayStart, Date dayEnd) {
+		List<RunLogEntity> runLog = runLogRepo.findByRunDateBetween(dayStart, dayEnd);
 		return runLog;
 	}
 

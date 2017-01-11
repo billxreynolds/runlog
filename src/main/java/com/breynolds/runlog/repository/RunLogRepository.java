@@ -1,6 +1,7 @@
 package com.breynolds.runlog.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,7 +11,7 @@ public interface RunLogRepository extends CrudRepository<RunLogEntity, Long> {
 
 	RunLogEntity findByRunDate(Date runDate);
 
-	RunLogEntity findByRunDateBetween(Date dayStart, Date dayEnd);
+	List<RunLogEntity> findByRunDateBetween(Date dayStart, Date dayEnd);
 
 	RunLogEntity findById(Integer id);
 
